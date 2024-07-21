@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TaskAppTheme {
+class AppTheme {
   // 1
   static TextTheme lightTextTheme = const TextTheme(
     labelLarge: TextStyle(
