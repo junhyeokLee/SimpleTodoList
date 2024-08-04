@@ -17,15 +17,15 @@ class AppTheme {
 
   static TextTheme darkTextTheme = const TextTheme(
     labelLarge: TextStyle(
-        fontSize: 18.0, fontWeight: FontWeight.w400, color: Colors.black),
+        fontSize: 18.0, fontWeight: FontWeight.w400, color: Colors.white),
     bodyLarge: TextStyle(
-        fontSize: 18.0, fontWeight: FontWeight.w400, color: Colors.black),
+        fontSize: 18.0, fontWeight: FontWeight.w400, color: Colors.white),
     bodyMedium: TextStyle(
-        fontSize: 16.0, fontWeight: FontWeight.w400, color: Colors.black),
+        fontSize: 16.0, fontWeight: FontWeight.w400, color: Colors.white),
     displayLarge: TextStyle(
-        fontSize: 40.0, fontWeight: FontWeight.w500, color: Colors.black),
+        fontSize: 40.0, fontWeight: FontWeight.w500, color: Colors.white),
     displayMedium: TextStyle(
-        fontSize: 32.0, fontWeight: FontWeight.w400, color: Colors.black),
+        fontSize: 32.0, fontWeight: FontWeight.w400, color: Colors.white),
   );
 
   // 2

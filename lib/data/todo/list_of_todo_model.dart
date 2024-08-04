@@ -12,3 +12,7 @@ class ListOfTodoModel with _$ListOfTodoModel {
 
   factory ListOfTodoModel.fromJson(Map<String, dynamic> json) => _$ListOfTodoModelFromJson(json);
 }
+
+ListOfTodoModel listOfTodoModelFromTodos(List<TodoModel> todos) {
+  return ListOfTodoModel(data: todos);
+}

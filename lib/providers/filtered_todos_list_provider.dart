@@ -13,9 +13,20 @@ final filteredTodos = Provider<ListOfTodoModel>((ref) {
       return ListOfTodoModel(
         data: todos.data.where((todo) => todo.isCompleted).toList(),
       );
+    // case TodoFilterType.today:
+    //   return ListOfTodoModel(
+    //     data: todos.data.where((todo) => !todo.isCompleted).toList(),
+    //   );
     case TodoFilterType.today:
+      final today = DateTime.now();
       return ListOfTodoModel(
-        data: todos.data.where((todo) => !todo.isCompleted).toList(),
+        data: todos.data.where((todo) =>
+        !todo.isCompleted
+            &&
+            todo.date.year == today.year &&
+            todo.date.month == today.month &&
+            todo.date.day == today.day
+        ).toList(),
       );
     case TodoFilterType.pinned:
       return ListOfTodoModel(

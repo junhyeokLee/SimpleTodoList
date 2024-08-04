@@ -23,23 +23,17 @@ class SharedUtility {
   final SharedPreferences sharedPreferences;
 
   ListOfTodoModel loadSharedTodoData() {
-    Map<String, dynamic> decodeOptions = jsonDecode(
-        sharedPreferences.getString(sharedPrefTodoListKey) ??
-            emptyJsonStringData);
-    ListOfTodoModel listOfTodoModel = ListOfTodoModel.fromJson(decodeOptions);
-    return listOfTodoModel;
+    final jsonString = sharedPreferences.getString(sharedPrefTodoListKey) ?? emptyJsonStringData;
+    final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
+
+    return ListOfTodoModel.fromJson(jsonMap);
   }
 
   void saveSharedTodoData(ListOfTodoModel listOfTodoModel) {
-    if (listOfTodoModel.data.isNotEmpty) {
-      Map<String, dynamic> decodeOptions = listOfTodoModel.toJson();
-      String sharedData = jsonEncode(
-        ListOfTodoModel.fromJson(decodeOptions),
-      );
-      sharedPreferences.setString(sharedPrefTodoListKey, sharedData);
-    } else {
-      sharedPreferences.setString(sharedPrefTodoListKey, emptyJsonStringData);
-    }
+    final jsonMap = listOfTodoModel.toJson();
+    final jsonString = jsonEncode(jsonMap);
+
+    sharedPreferences.setString(sharedPrefTodoListKey, jsonString);
   }
 
   bool isDarkModeEnabled() {

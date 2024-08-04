@@ -13,11 +13,21 @@ final todoListProvider = StateNotifierProvider<TodoList, ListOfTodoModel>(
   },
 );
 
+
+// 날짜별 Todo 목록을 제공하는 Provider
+final todosByDateProvider = Provider.family<List<TodoModel>, DateTime>((ref, date) {
+  final todoList = ref.watch(todoListProvider);
+  return todoList.data.where((todo) {
+    return todo.date.year == date.year &&
+        todo.date.month == date.month &&
+        todo.date.day == date.day;
+  }).toList();
+});
+
 class TodoList extends StateNotifier<ListOfTodoModel> {
   TodoList(ListOfTodoModel initialTodos, this.sharedUtility)
-      : super(
-          initialTodos,
-        );
+      : super(initialTodos);
+
   final SharedUtility sharedUtility;
 
   void overrideData(ListOfTodoModel listOfTodoModel) {
@@ -30,17 +40,24 @@ class TodoList extends StateNotifier<ListOfTodoModel> {
     sharedUtility.saveSharedTodoData(state);
   }
 
-  void loadData() {
+  Future<void> loadData() async {
     final data = sharedUtility.loadSharedTodoData();
     state = data;
   }
 
-  /// Adds a new [TodoModel] to the list.
-  void add(String description) {
+  /// 새로운 Todo 항목을 추가하는 메서드
+  /// [description]: 할 일에 대한 설명
+  /// [date]: 할 일의 날짜
+  void add(String description,DateTime date) {
+    // 날짜가 null인 경우 오늘 날짜로 설정
+    final readDate = date != null ? date : DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+    // 새로운 TodoModel을 리스트의 맨 앞에 추가
     state = ListOfTodoModel(data: [
+      TodoModel(id: _uuid.v4(), description: description,date: readDate),
       ...state.data,
-      TodoModel(id: _uuid.v4(), description: description, date: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)),
     ]);
+    // 데이터를 저장
     saveData();
   }
 
@@ -52,8 +69,9 @@ class TodoList extends StateNotifier<ListOfTodoModel> {
           TodoModel(
             id: todo.id,
             description: todo.description,
+            date: todo.date,
             isCompleted: todo.isCompleted,
-            isPinned: !todo.isPinned, date: todo.date,
+            isPinned: !todo.isPinned,
           )
         else
           todo,
@@ -69,9 +87,9 @@ class TodoList extends StateNotifier<ListOfTodoModel> {
           TodoModel(
             id: todo.id,
             description: todo.description,
+            date: todo.date,
             isCompleted: !todo.isCompleted,
             isPinned: todo.isPinned,
-            date: todo.date
           )
         else
           todo,
@@ -87,9 +105,9 @@ class TodoList extends StateNotifier<ListOfTodoModel> {
           TodoModel(
             id: todo.id,
             description: description,
+            date: todo.date,
             isCompleted: todo.isCompleted,
             isPinned: todo.isPinned,
-            date: todo.date
           )
         else
           todo,

@@ -13,8 +13,10 @@ dependencies:
   cupertino_icons: ^1.0.6
   hooks_riverpod: ^2.5.1
   flutter_hooks: ^0.20.5
+  #  json_annotation: ^4.6.0
+  #  freezed_annotation: ^2.4.0
+  freezed_annotation: ^2.2.0
   json_annotation: ^4.6.0
-  freezed_annotation: ^2.4.0
   uuid: ^4.4.2
   shared_preferences: ^2.2.3
   backdrop: ^0.9.1
@@ -23,6 +25,7 @@ dependencies:
   permission_handler: ^11.3.1
   share_plus: ^9.0.0
   file_picker: ^8.0.6
+  table_calendar: ^3.1.2
   carbon_icons: ^0.0.1+2
   animations: ^2.0.11
   fluid_dialog: ^2.0.0
@@ -32,10 +35,23 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.2.0
-  freezed: ^2.4.0
-  json_serializable: ^6.1.0
+  #  build_runner: ^2.2.0
+  #  freezed: ^2.4.0
+  #  json_serializable: ^6.1.0
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^4.0.0
+  build_runner: ^2.3.0
+  freezed: ^2.2.0
+  json_serializable: ^6.5.0
+
+flutter_launcher_icons:
+  #  android: "launcher_icon"
+  #  ios: "AppIcon"
+  android: true
+  ios: true
+  image_path_ios: "assets/icon/app_icon.png"
+  image_path_android: "assets/icon/app_icon.png"
+  remove_alpha_ios: true
 
 flutter:
   uses-material-design: true

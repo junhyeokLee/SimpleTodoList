@@ -66,7 +66,7 @@ class Home extends HookConsumerWidget {
         backLayerScrim: isDark ? Colors.white54 : Colors.black54,
         appBar: BackdropAppBar(
           leading: Padding(padding: const EdgeInsets.symmetric(horizontal: 0.0)),
-          title: const Text('MemoPad'),
+          title: const Text('메모'),
           actions: [
             BackdropToggleButton(
               color: isDark ? Colors.white : Colors.black,
@@ -81,7 +81,7 @@ class Home extends HookConsumerWidget {
         frontLayer: ListView(
           controller: scrollController,
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
           children: [
             const SizedBox(
               height: 16,

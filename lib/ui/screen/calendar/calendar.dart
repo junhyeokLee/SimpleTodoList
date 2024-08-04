@@ -1,36 +1,42 @@
 // home.dart
+import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../providers/theme_provider.dart';
-import '../../../providers/todo_scroll_visibility_provider.dart';
+import '../home/back_layer_page.dart';
+import 'calendar_todo_list.dart';
 
 class Calendar extends HookConsumerWidget {
   const Calendar({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext contex, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
 
-    // useEffect(() {
-    //   void scrollListener() {
-    //       updateScrollVisibility(ref, false); // 스크롤 시 가시성 업데이트
-    //   }
-    //   Future(() => scrollListener());
-    //   return () => updateScrollVisibility(ref,false);
-    // }, []);
+    final bool isDark = ref.watch(isDarkProvider).getTheme();
 
-    return Consumer(
-      builder: (BuildContext context, WidgetRef ref, _) {
-        final bool isDark = ref.watch(isDarkProvider).getTheme();
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('Calendar'),
+    return BackdropScaffold(
+      frontLayerBackgroundColor: Theme.of(context).colorScheme.primary,
+      backLayerBackgroundColor: Theme.of(context).colorScheme.primary,
+      headerHeight: 0,
+      frontLayerBorderRadius: BorderRadius.circular(0),
+      stickyFrontLayer: true,
+      frontLayerScrim: isDark ? Colors.black54 : Colors.white60,
+      backLayerScrim: isDark ? Colors.white54 : Colors.black54,
+      appBar: BackdropAppBar(
+        leading: Padding(padding: const EdgeInsets.symmetric(horizontal: 0.0)),
+        title: const Text('캘린더'),
+        actions: [
+          BackdropToggleButton(
+            color: isDark ? Colors.white : Colors.black,
+            icon: AnimatedIcons.close_menu,
           ),
-          body: const Center(
-            child: Text('Calendar Page'),
-          ),
-        );
-      },
+          const SizedBox(
+            width: 16,
+          )
+        ],
+      ),
+      backLayer: const BackLayerPage(),
+      frontLayer: CalendarTodoList(),
     );
   }
 }
